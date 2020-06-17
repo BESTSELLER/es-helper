@@ -17,5 +17,18 @@ commands:
             tar xzf conftest_$VERSION_Linux_x86_64.tar.gz
             chmod +x conftest
             ./conftest test << parameters.path >>
+      - run:
+          name: validate kubernetes config
+          command: |
+            wget https://github.com/instrumenta/kubeval/releases/latest/download/kubeval-linux-amd64.tar.gz
+            tar xf kubeval-linux-amd64.tar.gz
+            chmod +x kubeval
+            ./kubeval << parameters.path >>
+
+
+
+
+      
+
 
 
