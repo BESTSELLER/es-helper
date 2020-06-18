@@ -1,44 +1,81 @@
 version: 2.1
 
 executors:
-  es-helper:
+  docker:
     docker:
-      - image: eu.gcr.io/swade1987/kubernetes-toolkit:1.17.2
+      - image: docker:stable-git
+  alpine:
+    docker:
+      - image: circleci/alpine
+
+orbs:
+  secret-injector: bestsellerit/secret-injector@0.2.28
 
 jobs:
-  check-kube-config:
+  docker-build:
     description: Check for deprecated api specs and validates kubernetes yaml
-    executor: es-helper
-    parallelism: 2
-    parameters:
-      path:
-        description: path to kube spec files
-        type: string
-      kubernetes_version:
-        description: kubernetes major version to check eg. 1.16
-        type: string
+    executor: docker
     steps:
       - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp
       - run:
-          name: check for depracted kubernetes APIs
+          name: Push and build image
           command: |
-            conftest test << parameters.path >> -p /policies/
+            source /tmp/secrets.env
+            docker login -u $docker_eshelper_username -p $docker_eshelper_password $K8S_CLUSTER_docker_registry_url
+            docker build \
+              -t $K8S_CLUSTER_docker_registry_url/library/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG \
+              -t $K8S_CLUSTER_docker_registry_url/library/$CIRCLE_PROJECT_REPONAME:latest \
+              .
+            docker push $K8S_CLUSTER_docker_registry_url/library/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG
+            docker push $K8S_CLUSTER_docker_registry_url/library/$CIRCLE_PROJECT_REPONAME:latest
+
+  publish:
+    description: Check for deprecated api specs and validates kubernetes yaml
+    executor: alpine
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp
+      - secret-injector/vault-login
       - run:
-          name: validate kubernetes config
+          name: Publish CircleCI orb
           command: |
-            kubeval << parameters.path >> --strict --kubernetes-version << parameters.kubernetes_version >>.0
+            wget https://github.com/CircleCI-Public/circleci-cli/releases/download/v0.1.5879/circleci-cli_0.1.5879_linux_amd64.tar.gz
+            tar -xf circleci-cli_0.1.5879_linux_amd64.tar.gz
+            mv circleci-cli_0.1.5879_linux_amd64 cli
+            export CIRCLECI_CLI_TOKEN=$(vault kv get -field=circleci_token ES/harpocrates)
+            CC_NAMESPACE=bestsellerit
+            ORB_PATH=./orb/orb.yml
+            ORB_NAME=secret-injector
+            
+            ./cli/circleci orb validate $ORB_PATH
+            ./cli/circleci orb publish $ORB_PATH $CC_NAMESPACE/$ORB_NAME@$CIRCLE_TAG
+            ./cli/circleci orb unlist $CC_NAMESPACE/$ORB_NAME true
 
 workflows:
-  test:
+  publish:
     jobs:
-      - check-kube-config:
-          path: ./ingress.yaml ./ingress_valid.yaml
-          kubernetes_version: "1.17"
-  # publish:
-  #   jobs:
-  #     - publish:
-  #         filters:
-  #           tags:
-  #             only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
-  #           branches:
-  #             ignore: /.*/
+      - secret-injector/dump-secrets:
+          vault-path: ES/service_accounts/harbor/eshelper-ci
+          filters:
+            tags:
+              only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
+            branches:
+              ignore: /.*/
+      - docker-build:
+          requires:
+            - secret-injector/dump-secrets
+          filters:
+            tags:
+              only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
+            branches:
+              ignore: /.*/
+      - publish:
+          filters:
+            tags:
+              only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
+            branches:
+              ignore: /.*/

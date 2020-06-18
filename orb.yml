@@ -6,7 +6,6 @@ executors:
     docker:
       - image: harbor.bestsellerit.com/library/es-helper:v0.0.0
 
-
 jobs:
   check-kube-config:
     description: Check for deprecated api specs and validates kubernetes yaml
