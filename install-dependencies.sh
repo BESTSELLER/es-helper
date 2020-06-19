@@ -23,6 +23,7 @@ kubernetes-json-schema-master/v1.15.0-standalone-strict \
 kubernetes-json-schema-master/v1.16.0-standalone-strict
 
 printf "\nfetch conftest kubernetes policies\n"
+mkdir -p /policies
 wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=1 "deprek8ion-master/policies" -C /policies
 
 KUBESCORE=1.7.1
