@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Replace version
           command: |
-            sed -ie 's/CIRCLE_TAG/$CIRCLE_TAG/g' orb.yml
+            sed -ie 's/CIRCLE_TAG/'"$CIRCLE_TAG"'/g' orb.yml
       - run:
           name: Publish CircleCI orb
           command: |
