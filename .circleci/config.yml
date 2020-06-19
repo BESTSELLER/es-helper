@@ -43,9 +43,9 @@ jobs:
       - run:
           name: Publish CircleCI orb
           command: |
-            wget https://github.com/CircleCI-Public/circleci-cli/releases/download/v0.1.5879/circleci-cli_0.1.5879_linux_amd64.tar.gz
-            tar -xf circleci-cli_0.1.5879_linux_amd64.tar.gz
-            mv circleci-cli_0.1.5879_linux_amd64 cli
+            wget https://github.com/CircleCI-Public/circleci-cli/releases/download/v0.1.8302/circleci-cli_0.1.8302_linux_amd64.tar.gz
+            tar -xf circleci-cli_0.1.8302_linux_amd64.tar.gz
+            mv circleci-cli_0.1.8302_linux_amd64 cli
             export CIRCLECI_CLI_TOKEN=$(vault kv get -field=circleci_token ES/harpocrates)
             CC_NAMESPACE=bestsellerit
             ORB_PATH=./orb/orb.yml
