@@ -27,6 +27,10 @@ jobs:
           name: validate kubernetes config
           command: |
             kubeval << parameters.path >> --strict --kubernetes-version << parameters.kubernetes_version >>.0
+      - run:
+          name: running Kubernetes object analysis
+          command: |
+            kube-score score << parameters.path >>
 
 commands:
   check-kube-config:

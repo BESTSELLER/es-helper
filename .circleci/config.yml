@@ -49,7 +49,7 @@ jobs:
             export CIRCLECI_CLI_TOKEN=$(vault kv get -field=circleci_token ES/harpocrates)
             CC_NAMESPACE=bestsellerit
             ORB_PATH=./orb/orb.yml
-            ORB_NAME=secret-injector
+            ORB_NAME=es-helper
             
             ./cli/circleci orb validate $ORB_PATH
             ./cli/circleci orb publish $ORB_PATH $CC_NAMESPACE/$ORB_NAME@$CIRCLE_TAG

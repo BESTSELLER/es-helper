@@ -24,3 +24,8 @@ kubernetes-json-schema-master/v1.16.0-standalone-strict
 
 printf "\nfetch conftest kubernetes policies\n"
 wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=1 "deprek8ion-master/policies" -C /policies
+
+printf "\downloading kube-score\n"
+curl -sL https://github.com/zegl/kube-score/releases/download/v1.7.1/kube-score_1.7.1_linux_amd64.tar.gz | \
+tar xz && mv kube-score /usr/local/bin/kube-score
+kube-score version
