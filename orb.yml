@@ -45,7 +45,8 @@ commands:
 
             if [ $CIRCLE_TAG != $LATEST ]
             then
-              echo -e "\e[31mYou are NOT running the latest version of this orb.\nConsider upgrading to version $LATEST\e[0m"
+              echo -e "\e[31mYou are NOT running the latest version of this orb.\n\e[0m"
+              echo -e "\e[31mConsider upgrading to version $LATEST\e[0m"
             fi
   check-kube-config:
     description: Check for deprecated api specs and validates kubernetes yaml
