@@ -5,8 +5,8 @@ executors:
     docker:
       - image: docker:stable-git
   alpine:
-    docker:
-      - image: circleci/alpine
+    circleci-cli:
+      - image: circleci/circleci-cli:alpine
 
 orbs:
   secret-injector: bestsellerit/secret-injector@0.2.28
@@ -34,7 +34,7 @@ jobs:
 
   publish:
     description: Check for deprecated api specs and validates kubernetes yaml
-    executor: alpine
+    executor: circleci-cli
     steps:
       - checkout
       - attach_workspace:
@@ -47,17 +47,14 @@ jobs:
       - run:
           name: Publish CircleCI orb
           command: |
-            wget https://github.com/CircleCI-Public/circleci-cli/releases/download/v0.1.8302/circleci-cli_0.1.8302_linux_amd64.tar.gz
-            tar -xf circleci-cli_0.1.8302_linux_amd64.tar.gz
-            mv circleci-cli_0.1.8302_linux_amd64 cli
             export CIRCLECI_CLI_TOKEN=$(vault kv get -field=circleci_token ES/harpocrates)
             CC_NAMESPACE=bestsellerit
             ORB_PATH=./orb.yml
             ORB_NAME=es-helper
             
-            ./cli/circleci orb validate $ORB_PATH
-            ./cli/circleci orb publish $ORB_PATH $CC_NAMESPACE/$ORB_NAME@$CIRCLE_TAG
-            ./cli/circleci orb unlist $CC_NAMESPACE/$ORB_NAME true
+            circleci orb validate $ORB_PATH
+            circleci orb publish $ORB_PATH $CC_NAMESPACE/$ORB_NAME@$CIRCLE_TAG
+            circleci orb unlist $CC_NAMESPACE/$ORB_NAME true
 
 
 workflows:
