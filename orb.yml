@@ -22,6 +22,7 @@ jobs:
       - run:
           name: check for depracted kubernetes APIs
           command: |
+            /replace_policies.sh << parameters.kubernetes_version >>
             conftest test << parameters.path >> -p /policies/
       - run:
           name: validate kubernetes config

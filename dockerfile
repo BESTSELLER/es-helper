@@ -10,7 +10,7 @@ RUN apk add --no-cache \
 COPY ./install-dependencies.sh /install-dependencies.sh
 RUN /install-dependencies.sh
 
-# Expose the Kubeval schema location to speed up `kubeval` executions.
-ENV KUBEVAL_SCHEMA_LOCATION=file:///usr/local/kubeval/schemas
+# Copy script to replace conftest policies
+COPY ./replace_policies.sh /replace_policies.sh
 
 CMD ["/bin/sh"]

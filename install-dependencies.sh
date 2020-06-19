@@ -16,7 +16,7 @@ conftest --version
 
 printf "\nfetch conftest kubernetes policies\n"
 mkdir -p /policies
-wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=1 "deprek8ion-master/policies" -C /policies
+wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=2 "deprek8ion-master/policies" -C /policies
 
 KUBESCORE=1.7.1
 printf "\ndownloading kube-score ${KUBESCORE}\n"
