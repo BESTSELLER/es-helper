@@ -4,8 +4,8 @@ executors:
   docker:
     docker:
       - image: docker:stable-git
-  alpine:
-    circleci-cli:
+  circleci-cli:
+    docker:
       - image: circleci/circleci-cli:alpine
 
 orbs:
