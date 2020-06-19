@@ -8,7 +8,7 @@ RUN apk add --no-cache \
 
 # Install necessary packages
 COPY ./install-dependencies.sh /install-dependencies.sh
-RUN /install-dependencies.sh ${KUBERNETES_VERSION}
+RUN /install-dependencies.sh
 
 # Expose the Kubeval schema location to speed up `kubeval` executions.
 ENV KUBEVAL_SCHEMA_LOCATION=file:///usr/local/kubeval/schemas
