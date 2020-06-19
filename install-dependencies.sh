@@ -14,20 +14,12 @@ curl -sL https://github.com/instrumenta/conftest/releases/download/v${CONFTEST}/
 tar xz && mv conftest /usr/local/bin/conftest
 conftest --version
 
-printf "\nfetch kubeval kubernetes json schemas\n"
-mkdir -p /usr/local/kubeval/schemas && \
-curl https://codeload.github.com/instrumenta/kubernetes-json-schema/tar.gz/master | \
-tar -C /usr/local/kubeval/schemas --strip-components=1 -xzf - \
-kubernetes-json-schema-master/v1.14.0-standalone-strict \
-kubernetes-json-schema-master/v1.15.0-standalone-strict \
-kubernetes-json-schema-master/v1.16.0-standalone-strict
-
 printf "\nfetch conftest kubernetes policies\n"
 mkdir -p /policies
 wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=1 "deprek8ion-master/policies" -C /policies
 
 KUBESCORE=1.7.1
-printf "\downloading kube-score ${KUBESCORE}\n"
-curl -sL https://github.com/zegl/kube-score/releases/download/${KUBESCORE}/kube-score_${KUBESCORE}_linux_amd64.tar.gz | \
+printf "\ndownloading kube-score ${KUBESCORE}\n"
+curl -sL https://github.com/zegl/kube-score/releases/download/v${KUBESCORE}/kube-score_${KUBESCORE}_linux_amd64.tar.gz | \
 tar xz && mv kube-score /usr/local/bin/kube-score
 kube-score version
