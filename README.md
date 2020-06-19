@@ -9,11 +9,18 @@ Image which can found at [harbor.bestsellerit.com/library/es-helper](harbor.best
 
 CircleCI ORB which can found [here](https://circleci.com/orbs/registry/orb/bestsellerit/es-helper)
 
+## What is included
+
+- kubeval (https://github.com/instrumenta/kubeval)
+- conftest (https://github.com/instrumenta/conftest)
+- kube-score (https://github.com/zegl/kube-score)
+
 ## How to
----
 The helper is available either as CircleCI ORB or as a plain docker image that can be included in your CI of choice.
 
 ### Docker image
+Pull the image and run each of the commands.
+Default entrypoint is `sh`.
 
 
 ### CircleCI ORB
@@ -34,5 +41,4 @@ workflows:
 
 
 ## Contributing?
----
 Do you want to help out? Issues and pull requests are more than welcome. :D
