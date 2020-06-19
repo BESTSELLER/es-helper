@@ -19,6 +19,7 @@ jobs:
         type: string
     steps:
       - checkout
+      - is_latest
       - run:
           name: check for depracted kubernetes APIs
           command: |
@@ -33,6 +34,18 @@ jobs:
             kube-score score << parameters.path >>
 
 commands:
+  is_latest:
+    description: Will check if orb is latest version
+    steps:
+      - run:
+          name: Will check if orb is latest version
+          command: |
+            LATEST=$(wget -q -O- "https://api.github.com/repos/BESTSELLER/es-helper/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
+            if [ $CIRCLE_TAG != $LATEST ]
+            then
+              echo -e "\e[31mYou are NOT running the latest version of this orb.\nConsider upgrading to version $LATEST\e[0m"
+            fi
   check-kube-config:
     description: Check for deprecated api specs and validates kubernetes yaml
     parameters:
@@ -40,6 +53,7 @@ commands:
           description: path to kube spec files
           type: string
     steps:
+      - is_latest
       - run:
           name: check for depracted kubernetes APIs
           command: |
