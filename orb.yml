@@ -4,7 +4,7 @@ description: es-helper orb
 executors:
   es-helper:
     docker:
-      - image: harbor.bestsellerit.com/library/es-helper:v0.0.0
+      - image: harbor.bestsellerit.com/library/es-helper:CIRCLE_TAG
 
 jobs:
   check-kube-config:

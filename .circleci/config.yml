@@ -41,6 +41,10 @@ jobs:
           at: /tmp
       - secret-injector/vault-login
       - run:
+          name: Replace version
+          command: |
+            sed -ie 's/CIRCLE_TAG/$CIRCLE_TAG/g' orb.yml
+      - run:
           name: Publish CircleCI orb
           command: |
             wget https://github.com/CircleCI-Public/circleci-cli/releases/download/v0.1.8302/circleci-cli_0.1.8302_linux_amd64.tar.gz
@@ -48,12 +52,13 @@ jobs:
             mv circleci-cli_0.1.8302_linux_amd64 cli
             export CIRCLECI_CLI_TOKEN=$(vault kv get -field=circleci_token ES/harpocrates)
             CC_NAMESPACE=bestsellerit
-            ORB_PATH=./orb/orb.yml
+            ORB_PATH=./orb.yml
             ORB_NAME=es-helper
             
             ./cli/circleci orb validate $ORB_PATH
             ./cli/circleci orb publish $ORB_PATH $CC_NAMESPACE/$ORB_NAME@$CIRCLE_TAG
             ./cli/circleci orb unlist $CC_NAMESPACE/$ORB_NAME true
+
 
 workflows:
   publish:

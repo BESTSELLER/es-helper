@@ -7,7 +7,7 @@ RUN apk add --no-cache \
   && rm -rf /var/cache/apk/*
 
 # Install necessary packages
-COPY src/install-dependencies.sh /install-dependencies.sh
+COPY ./install-dependencies.sh /install-dependencies.sh
 RUN /install-dependencies.sh ${KUBERNETES_VERSION}
 
 # Expose the Kubeval schema location to speed up `kubeval` executions.
