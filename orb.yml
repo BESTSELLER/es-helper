@@ -64,8 +64,8 @@ commands:
             wget https://github.com/instrumenta/conftest/releases/download/v$VERSION/conftest_$VERSION_Linux_x86_64.tar.gz
             tar xzf conftest_$VERSION_Linux_x86_64.tar.gz
             chmod +x conftest
-            wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=1 "deprek8ion-master/policies"
-            ./conftest test << parameters.path >> -p ./policies/
+            wget -O - https://github.com/BESTSELLER/es-helper/archive/master.tar.gz | tar -xz --strip=1 "es-helper/policies"
+            ./conftest test << parameters.path >> -p ./policies/<< parameters.kubernetes_version >>
       - run:
           name: validate kubernetes config
           command: |
@@ -73,3 +73,9 @@ commands:
             tar xf kubeval-linux-amd64.tar.gz
             chmod +x kubeval
             ./kubeval << parameters.path >>
+      - run:
+          name: kube-score
+          command: |
+            curl -sL https://github.com/zegl/kube-score/releases/download/v${KUBESCORE}/kube-score_${KUBESCORE}_linux_amd64.tar.gz | \
+            tar xz && chmod +x kube-score
+            ./kube-score score << parameters.path >>

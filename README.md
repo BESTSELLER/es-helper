@@ -7,7 +7,7 @@ Available as:
 
 Image which can found at [harbor.bestsellerit.com/library/es-helper](harbor.bestsellerit.com/library/es-helper)
 
-CircleCI ORB which can found [here](https://circleci.com/orbs/registry/orb/bestsellerit/es-helper)
+CircleCI Orb which can found [here](https://circleci.com/orbs/registry/orb/bestsellerit/es-helper)
 
 ## What is included
 
@@ -16,14 +16,14 @@ CircleCI ORB which can found [here](https://circleci.com/orbs/registry/orb/bests
 - kube-score (https://github.com/zegl/kube-score)
 
 ## How to
-The helper is available either as CircleCI ORB or as a plain docker image that can be included in your CI of choice.
+The helper is available either as CircleCI Orb or as a plain docker image that can be included in your CI of choice.
 
 ### Docker image
 Pull the image and run each of the commands.
 Default entrypoint is `sh`.
 
 
-### CircleCI ORB
+### CircleCI Orb
 Running it as part of your CircleCI pipeline is simple as:
 ```yaml
 version: 2.1
@@ -38,6 +38,8 @@ workflows:
           path: ./deployment.yaml ingress.yaml
           kubernetes_version: "1.16"
 ```
+
+*When running the helper as an orb the kube-score command will always exit succesfuly even if criticals occur.*
 
 
 ## Contributing?
