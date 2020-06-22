@@ -33,7 +33,7 @@ jobs:
           command: |
             # I AM SO SORRY !
             # THIS IS AN UGLY HACK !!
-            awk 'FNR==1{print ""}1' << parameters.path >> | sed 's/\$//g' | kube-score score -
+            awk 'FNR==1{print ""}1' << parameters.path >> | sed 's/\$//g' | kube-score score - || true
 
 commands:
   is_latest:
