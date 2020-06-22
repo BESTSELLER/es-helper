@@ -14,10 +14,6 @@ curl -sL https://github.com/instrumenta/conftest/releases/download/v${CONFTEST}/
 tar xz && mv conftest /usr/local/bin/conftest
 conftest --version
 
-printf "\nfetch conftest kubernetes policies\n"
-mkdir -p /policies
-wget -O - https://github.com/swade1987/deprek8ion/archive/master.tar.gz | tar -xz --strip=2 "deprek8ion-master/policies" -C /policies
-
 KUBESCORE=1.7.1
 printf "\ndownloading kube-score ${KUBESCORE}\n"
 curl -sL https://github.com/zegl/kube-score/releases/download/v${KUBESCORE}/kube-score_${KUBESCORE}_linux_amd64.tar.gz | \
