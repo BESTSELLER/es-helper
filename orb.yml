@@ -44,7 +44,7 @@ commands:
           command: |
             LATEST=$(wget -q -O- "https://api.github.com/repos/BESTSELLER/es-helper/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 
-            if [ "$CIRCLE_TAG" != "$LATEST" ]
+            if [ "CIRCLE_TAG" != "$LATEST" ]
             then
               echo -e "\e[31mYou are NOT running the latest version of this orb.\n\e[0m"
               echo -e "\e[31mConsider upgrading to version $LATEST\e[0m"
