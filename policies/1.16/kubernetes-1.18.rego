@@ -1,22 +1,22 @@
 package main
 
-deny[msg] {
+warn[msg] {
   input.apiVersion == "v1"
   input.kind == "List"
   obj := input.items[_]
-  msg := _deny with input as obj
+  msg := _warn with input as obj
 }
 
-deny[msg] {
+warn[msg] {
   input.apiVersion != "v1"
   input.kind != "List"
-  msg := _deny
+  msg := _warn
 }
 
 # Based on https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.18.md
 
 # Within Ingress resources spec.ingressClassName replaces the deprecated kubernetes.io/ingress.class annotation.
-_deny = msg {
+_warn = msg {
   resources := ["Ingress"]
   input.kind == resources[_]
   input.metadata.annotations["kubernetes.io/ingress.class"]
