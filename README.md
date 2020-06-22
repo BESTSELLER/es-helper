@@ -51,7 +51,8 @@ workflows:
     jobs:
       - es-helper/check-kube-config:
           path: ./deployment.yaml ingress.yaml
-          kubernetes_version: "1.16"
+          kubernetes_version: "1.16" 
+          #kubernetes_version: "$K8S_VERSION" # We use this in BESTSELLER, as we have our versions in our contexts.
 ```
 
 ### As a step in your existing job
@@ -70,6 +71,7 @@ jobs:
       - es-helper/check-kube-config:
           path: ./deployment.yaml ingress.yaml
           kubernetes_version: "1.16"
+          #kubernetes_version: "$K8S_VERSION" # We use this in BESTSELLER, as we have our versions in our contexts.
       - run:
           name: some command
           command: which some
