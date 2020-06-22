@@ -1,4 +1,5 @@
 # es-helper
+[![GitHub release](https://img.shields.io/github/release/BESTSELLER/es-helper.svg)](https://github.com/BESTSELLER/es-helper/releases/)
 [![CircleCI](https://circleci.com/gh/BESTSELLER/es-helper.svg?style=svg)](https://circleci.com/gh/BESTSELLER/es-helper)
 
 A collection of tools for checking your kubernetes specs.
