@@ -5,7 +5,7 @@ A collection of tools for checking your kubernetes specs.
 
 Available as:
 
-Image which can found at [harbor.bestsellerit.com/library/es-helper](harbor.bestsellerit.com/library/es-helper)
+Image which can found at [harbor.bestsellerit.com/library/es-helper](https://harbor.bestsellerit.com/library/es-helper)
 
 CircleCI Orb which can found [here](https://circleci.com/orbs/registry/orb/bestsellerit/es-helper)
 
