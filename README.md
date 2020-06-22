@@ -2,7 +2,7 @@
 [![GitHub release](https://img.shields.io/github/release/BESTSELLER/es-helper.svg)](https://github.com/BESTSELLER/es-helper/releases/)
 [![CircleCI](https://circleci.com/gh/BESTSELLER/es-helper.svg?style=svg)](https://circleci.com/gh/BESTSELLER/es-helper)
 
-A collection of tools for checking your kubernetes specs.
+A collection of tools for your kubernetes definitions. It will validate your YAML ( or JSON ), check for deprecated APIs and perform static code analysis of your Kubernetes object definitions.
 
 Available as:
 
@@ -24,10 +24,15 @@ Pull the image and run each of the commands.
 Default entrypoint is `sh`.
 
 ```sh
-docker run -it -v path/to/config:/path/to/config harbor.bestsellerit.com/library/es-helper:0.0.14 sh
+docker run -it -v path/to/config:/path/to/config harbor.bestsellerit.com/library/es-helper:latest sh
 
 # run a sample command in the container
 conftest test /path/to/config -p /policies/1.16
+```
+
+or run everyting as one commmand
+```sh
+docker run -v path/to/config:/path/to/config harbor.bestsellerit.com/library/es-helper:latest /bin/bash -c "conftest test /path/to/config -p /policies/<kubernetes_version> && kubeval /path/to/config --strict --kubernetes-version <kubernetes_version>.0 && kube-score score /path/to/config"
 ```
 
 ### CircleCI Orb
