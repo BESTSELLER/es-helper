@@ -22,8 +22,17 @@ The helper is available either as CircleCI Orb or as a plain docker image that c
 Pull the image and run each of the commands.
 Default entrypoint is `sh`.
 
+```sh
+docker run -it -v path/to/config:/path/to/config harbor.bestsellerit.com/library/es-helper:0.0.14 sh
+
+# run a sample command in the container
+conftest test /path/to/config -p /policies/1.16
+```
 
 ### CircleCI Orb
+es-helper can be both as a job in your workflow or as a step in an existing job
+
+### Seperate job
 Running it as part of your CircleCI pipeline is simple as:
 ```yaml
 version: 2.1
@@ -37,6 +46,27 @@ workflows:
       - es-helper/check-kube-config:
           path: ./deployment.yaml ingress.yaml
           kubernetes_version: "1.16"
+```
+
+### As a step in your existing job
+```yaml
+version: 2.1
+
+orbs:
+  es-helper: bestsellerit/es-helper@0.0.1
+
+jobs:
+  build:
+    description: Build Job
+    executor: someimage
+    steps:
+      - checkout
+      - es-helper/check-kube-config:
+          path: ./deployment.yaml ingress.yaml
+          kubernetes_version: "1.16"
+      - run:
+          name: some command
+          command: which some
 ```
 
 *When running the helper as an orb the kube-score command will always exit succesfuly even if criticals occur.*
