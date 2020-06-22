@@ -55,6 +55,9 @@ commands:
         path:
           description: path to kube spec files
           type: string
+        kubernetes_version:
+          description: kubernetes major version to check eg. 1.16
+          type: string
     steps:
       - is_latest
       - run:
