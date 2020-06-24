@@ -54,6 +54,7 @@ workflows:
           kubernetes_version: "1.16" 
           #kubernetes_version: "$K8S_VERSION" # We use this in BESTSELLER, as we have our versions in our contexts.
 ```
+*When running the helper as an orb the kube-score command will always exit succesfuly even if criticals occur.*
 
 ### As a step in your existing job
 ```yaml
@@ -77,7 +78,12 @@ jobs:
           command: which some
 ```
 
-*When running the helper as an orb the kube-score command will always exit succesfuly even if criticals occur.*
+### Orb versions
+`CircleCI` orbs are published with the standard 3-number semantic versioning system.
+You an either choose one of our specific versions eg. `0.0.17` or choose to always download the newest version by adding `volatile` as version.
+
+More info (https://circleci.com/docs/2.0/using-orbs/#semantic-versioning-in-orbs)[here]
+
 
 
 ## Contributing?
