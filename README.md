@@ -82,7 +82,7 @@ jobs:
 `CircleCI` orbs are published with the standard 3-number semantic versioning system.
 You an either choose one of our specific versions eg. `0.0.17` or choose to always download the newest version by adding `volatile` as version.
 
-More info (https://circleci.com/docs/2.0/using-orbs/#semantic-versioning-in-orbs)[here]
+More info [here](https://circleci.com/docs/2.0/using-orbs/#semantic-versioning-in-orbs)
 
 
 
