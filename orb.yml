@@ -17,6 +17,7 @@ jobs:
       kubernetes_version:
         description: kubernetes major version to check eg. 1.16
         type: string
+        default: "$K8S_VERSION"
     steps:
       - checkout
       - is_latest
@@ -58,6 +59,7 @@ commands:
         kubernetes_version:
           description: kubernetes major version to check eg. 1.16
           type: string
+          default: "$K8S_VERSION"
     steps:
       - is_latest
       - run:
