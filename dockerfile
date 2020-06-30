@@ -5,6 +5,7 @@ RUN apk add --no-cache \
   curl \
   bash \
   git \
+  openssh \
   && rm -rf /var/cache/apk/*
 
 # Install necessary packages
