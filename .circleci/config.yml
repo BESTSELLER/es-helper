@@ -4,9 +4,16 @@ executors:
   docker:
     docker:
       - image: docker:stable-git
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASS
+
   circleci-cli:
     docker:
       - image: circleci/circleci-cli:alpine
+        auth:
+          username: $DOCKERHUB_USER
+          password: $DOCKERHUB_PASS
 
 orbs:
   secret-injector: bestsellerit/secret-injector@1.0.4
@@ -34,7 +41,7 @@ jobs:
       - run:
           name: Push and build image
           command: |
-            source /tmp/secrets.env
+            source /tmp/secrets
             docker login -u $docker_eshelper_username -p $docker_eshelper_password $K8S_CLUSTER_docker_registry_url
             docker build \
               -t $K8S_CLUSTER_docker_registry_url/library/$CIRCLE_PROJECT_REPONAME:$CIRCLE_TAG \
