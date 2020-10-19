@@ -83,7 +83,7 @@ workflows:
   publish:
     jobs:
       - secret-injector/dump-secrets:
-          vault-path: ES/service_accounts/harbor/eshelper-ci
+          vault-path: ES/data/service_accounts/harbor/eshelper-ci
           filters:
             tags:
               only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
