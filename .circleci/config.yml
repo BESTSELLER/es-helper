@@ -83,6 +83,8 @@ workflows:
   publish:
     jobs:
       - secret-injector/dump-secrets:
+          context:
+            - es02-prod
           filters:
             tags:
               only: /^[0-9]+(\.[0-9]+)*(-.*)*$/
@@ -99,6 +101,8 @@ workflows:
             branches:
               ignore: /.*/
       - docker-build:
+          context:
+            - shared
           requires:
             - secret-injector/eshelper
           filters:
@@ -107,6 +111,8 @@ workflows:
             branches:
               ignore: /.*/
       - publish:
+          context:
+            - shared
           requires:
             - docker-build
           filters:
