@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: es-helper
+  description: Configurations for the various software that is deployed in our clusters
+  tags:
+    - development
+    - pipeline
+    - kubernetes
+    - CircleCi
+  annotations:
+    github.com/project-slug:  BESTSELLER/es-helper
+    circleci.com/project-slug: github/BESTSELLER/es-helper
+    sonarqube.org/project-key: BESTSELLER_es-helper
+spec:
+  type: service
+  lifecycle: production
+  owner: engineering-services
+---
+
