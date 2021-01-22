@@ -7,7 +7,7 @@ metadata:
     - development
     - pipeline
     - kubernetes
-    - CircleCi
+    - circleci
   annotations:
     github.com/project-slug:  BESTSELLER/es-helper
     circleci.com/project-slug: github/BESTSELLER/es-helper
